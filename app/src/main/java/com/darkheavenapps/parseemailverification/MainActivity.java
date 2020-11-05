@@ -13,6 +13,12 @@ import com.parse.ParseInstallation;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
+/*
+    Process of setting up parse server using back4app
+    setup details can be found on back4app Introduction section.
+    signing up and login code can also be found there..
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText emailEditText, usernameEditText, passwordEditText;
@@ -21,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //ParseInstallation.getCurrentInstallation().saveInBackground();
+        //ParseInstallation.getCurrentInstallation().saveInBackground();  //code to verify installation on a phone
         emailEditText = findViewById(R.id.editTextEmail);
         usernameEditText = findViewById(R.id.editTextUsername);
         passwordEditText = findViewById(R.id.editTextPassword);
@@ -40,14 +46,15 @@ public class MainActivity extends AppCompatActivity {
         // If this field does not exists, it will be automatically created
 
         user.signUpInBackground(new SignUpCallback() {
+            @Override
             public void done(ParseException e) {
                 if (e == null) {
                     // Hooray! Let them use the app now.
                     ParseUser.logOut();
                     Toast.makeText(MainActivity.this, "Sign up Succeeded!, Kindly verify email", Toast.LENGTH_SHORT).show();
-                    Intent  intent = new Intent(MainActivity.this, LoginActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    MainActivity.this.startActivity(intent);
                 } else {
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong

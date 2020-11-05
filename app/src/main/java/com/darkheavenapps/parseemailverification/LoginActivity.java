@@ -26,12 +26,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void loginIsPressed(View loginBtnView) {
         ParseUser.logInInBackground(userLogin.getText().toString(), userPass.getText().toString(), new LogInCallback() {
+            @Override
             public void done(ParseUser user, ParseException e) {
                 if (user != null) {
-                    Boolean emailVerified = user.getBoolean("emailVerified");
+                    boolean emailVerified = user.getBoolean("emailVerified");
                     if (emailVerified) {
                         // Hooray! The user is logged in.
-                        Toast.makeText(LoginActivity.this, "Welcome "+userLogin.getText().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Welcome " + userLogin.getText().toString(), Toast.LENGTH_SHORT).show();
                     } else {
                         // User did not confirm the e-mail!!
                         Toast.makeText(LoginActivity.this, "Email Confirmation Pending!", Toast.LENGTH_SHORT).show();
